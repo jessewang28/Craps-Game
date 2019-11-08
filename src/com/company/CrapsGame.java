@@ -14,7 +14,6 @@ public class CrapsGame
      */
     public int processRoll(int total)
     {
-        {
         int result;
         if (point==0) {
             if ((total == 2 || total == 3 || total == 12)) {
@@ -35,7 +34,6 @@ public class CrapsGame
                 else
                 { result = 0; }
             }
-        }
         return result;
     }
 
