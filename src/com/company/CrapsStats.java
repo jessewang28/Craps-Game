@@ -1,54 +1,63 @@
+package com.company;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class CrapsTest1 extends JFrame
+public class CrapsStats extends JFrame
         implements ActionListener
 {
     private CrapsGame game;
-    private JTextField input;
-    private JTextArea display;
+    private JTextField numberIn, statsOut;
 
     // Constructor
-    public CrapsTest1()
+    public CrapsStats()
     {
-        super("Craps: Test 1");
+        super("Craps test");
 
         Container c = getContentPane();
         c.setLayout(new FlowLayout());
 
-        c.add(new JLabel("Next roll:"));
-        input = new JTextField(5);
-        input.setBackground(Color.YELLOW);
-        input.addActionListener(this);
-        c.add(input);
+        c.add(new JLabel("Number of games to run:"));
 
-        display = new JTextArea(10, 20);
-        display.setEditable(false);
-        display.setBackground(Color.WHITE);
-        c.add(new JScrollPane(display,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER));
+        numberIn = new JTextField(5);
+        numberIn.addActionListener(this);
+        c.add(numberIn);
+
+        statsOut = new JTextField(18);
+        statsOut.setEditable(false);
+        c.add(statsOut);
 
         game = new CrapsGame();
     }
 
-    // Called when a number is enetered into the JTextField input
-    //
+    // Called when a number is entered in the numberIn text field
     public void actionPerformed(ActionEvent e)
     {
-        String s = input.getText().trim();
-        int total = Integer.parseInt(s);
-        int result = game.processRoll(total);
-        int point = game.getPoint();
-        input.setText("");
-        display.append(total + ":  Result = " + result + " Point = " + point + "\n");
+        String s = numberIn.getText();
+        int nGames = Integer.parseInt(s);
+        int result, gameCount = 0, winCount = 0;
+        Die die1 = new Die();
+        Die die2 = new Die();
+
+        while (gameCount < nGames)
+        {
+            die1.roll();
+            die2.roll();
+            int total = die1.getNumDots() + die2.getNumDots();
+            result = game.processRoll(total);
+            if (result != 0)
+                gameCount++;
+            if (result > 0)
+                winCount++;
+        }
+        numberIn.setText("");
+        statsOut.setText(" Games: " + gameCount + " Wins: " + winCount);
     }
 
-    public static void main(String[] args)
+    public static void main(String args[])
     {
-        CrapsTest1 window = new CrapsTest1();
-        window.setBounds(100, 100, 300, 240);
+        CrapsStats window = new CrapsStats();
+        window.setBounds(100, 100, 300, 100);
         window.setDefaultCloseOperation(EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setVisible(true);

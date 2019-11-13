@@ -1,22 +1,27 @@
 package com.company;
 
 public class Die {
-    public Die()
-    { int x = 0; }
+    private int x;
 
-    public int roll()
+    public Die() {
+        x = 0;
+    }
+
+    public void roll() {
+        x = (int) (Math.random() * 6 + 1);
+    }
+
+    public int getNumDots()
     {
-     int x = (int) (Math.random()*6 + 1) + Math.random()*6 + 1);
-     return x;
+        return x;
     }
 
     public static void main(String[] args) {
-// TODO Auto-generated method stub
         Die die = new Die();
         die.roll();
         System.out.println(die.getNumDots());
 
     }
-
+}
 
 

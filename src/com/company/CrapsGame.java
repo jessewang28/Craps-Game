@@ -1,4 +1,4 @@
-// Implements the game of Craps logic
+package com.company;// Implements the game of Craps logic
 
 public class CrapsGame
 {
