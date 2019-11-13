@@ -1,3 +1,5 @@
+//Jesse Wang
+//3B AP Computer Science
 package com.company;// Implements the game of Craps logic
 
 public class CrapsGame
